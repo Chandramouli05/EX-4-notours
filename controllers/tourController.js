@@ -1,4 +1,4 @@
-const fs = require('fs');
+const Tour = require('../models/tourModel');
 
 const tours = JSON.parse( 
     fs.readFileSync(`${__dirname}/../data.json`)
@@ -66,32 +66,22 @@ exports.getTour = (req,res)=>{
 }
 
 exports.createTour = (req,res)=>{
-    console.log(req.body);
+    
+ res.status(201).json({  // 201 OK is to add new element in the DB
+    status: 'success',
+        // data:{
+         //     tour: newTour
+        // }
+        })
 
-    const newId = tours[tours.length - 1].id + 1;
-    const newTour = Object.assign({id:newId},req.body);
 
-    tours.push(newTour);
-
-    fs.writeFile(`${__dirname}/data.json`, JSON.stringify(tours), err =>{
-        
-        if(err){
-          return res.status(404).json({
-               status: 'fail',
-               message: 'Invalid Data'
-             });
+   
         }
        
 
-        res.status(201).json({  // 201 OK is to add new element in the DB
-            status: 'success',
-            data:{
-                tour: newTour
-            }
-        })
-    });
+     
+    
 
-}
 
 
 
