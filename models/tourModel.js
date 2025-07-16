@@ -26,7 +26,7 @@ const tourSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    "price": {
+    price: {
        type: Number,
        required:[true, 'A tour must have a price'] 
     },
@@ -53,7 +53,7 @@ const tourSchema = new mongoose.Schema({
         default: Date.now(),
         select: false
     },
-    startDates: [Date]
+    startDates: [Date] 
 
 });
 
