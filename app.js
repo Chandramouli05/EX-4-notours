@@ -1,10 +1,12 @@
 const fs = require('fs');
 const express = require('express');
 const app = express();
+
+const AppError = require('./utils/appError').default;
+const globalErrorHandler = require('./controllers/errorController');
 const morgan = require('morgan');  // Morgan is popular logging middleware which allows to see request data in console.
 const tourRouter = require('./routers/tourRouters');
 const userRouter = require('./routers/userRouters');
-
 
 
 
@@ -46,6 +48,13 @@ app.delete('/api/v1/tours/:id',deleteTour); //Delete
 //3) ROUTES
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/tours', tourRouter);
+
+app.all('*',(req,res, next)=>{
+     next(new AppError(`Can't find ${req.originalUrl} on this server`, 404));
+});
+
+app.use(globalErrorHandler);
+
 
 
 // 4) START SERVER
